@@ -1,0 +1,66 @@
+class funcionario():
+    def __init__(self): 
+        self.vendedores= []
+    
+    def cad_vendedor(self): 
+        nome_vendedor=str(input("\nInsira aqui o nome do vendedor: "))
+        filial=int(input("\nQual o número da filial? "))
+        num_filial= [0,1,2,3,4,5,6,7,8,9]
+        if filial in num_filial:
+            print()
+        else: 
+            print("\nNúmero inserido não é válido, por favor insira o número da filial novamente!")
+            return(filial)
+        self.vendedores.append((nome_vendedor,filial))
+        return nome_vendedor,filial 
+
+    def dados_vendedor(self,nome_vendedor,filial):
+        filiais = ["Acre", "Pará", "Brasília", "Minas Gerais", "Rio de Janeiro", "São Paulo", "Piauí", "Maranhão", "Mato Grosso", "Santa Catarina"]
+        print(f"Vendedor(a): {nome_vendedor}".title())
+        print(f"Filial do(a) vendedor(a): {filiais[filial]}")
+    
+    def calculo_bonus(self):
+        meta= 2000
+        meta_empresa= 2500
+        
+        bonus= int(input("Insira o total (em R$) vendidos: "))
+        calc_bonus= bonus*0.25
+        if bonus >= meta and bonus >= meta_empresa: 
+            print(f"\nSeu bonûs é de: {calc_bonus}")
+        else: 
+            print("\nSem bonûs, meta da empresa/vendedor não batida! ")
+            return bonus 
+        return bonus
+
+    def mostrar_vendedores(self):
+        if not self.vendedores:
+            print("\nNenhum vendedor cadastrado.")
+        else:
+            print("\nLista de Vendedores:")
+            filiais = ["Acre", "Pará", "Brasília", "Minas Gerais", "Rio de Janeiro", "São Paulo", "Piauí", "Maranhão", "Mato Grosso", "Santa Catarina"]
+            for i, (nome_vendedor, filial) in enumerate(self.vendedores):
+                print(f"{i+1}. Vendedor(a): {nome_vendedor.title()}, Filial: {filiais[filial]}")
+
+    def main(self):
+        while True:
+                print("\n1. Cadastrar Vendedor\n2. Mostrar Vendedores\n3. Sair")
+                escolha = int(input("Escolha uma opção: "))
+                
+                if escolha == 1:
+                    vendedor = self.cad_vendedor()
+                    if vendedor:
+                        nome_vendedor, filial = vendedor
+                        self.dados_vendedor(nome_vendedor, filial)
+                        bonus = self.calculo_bonus()
+                        if bonus > 0:
+                            print(f"R$ {bonus:.2f}")
+                elif escolha == 2:
+                    self.mostrar_vendedores()
+                elif escolha == 3:
+                    break
+                else:
+                    print("\nOpção inválida. Tente novamente.")
+        
+if __name__ == "__main__":
+    func = funcionario()
+    func.main()
